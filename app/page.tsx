@@ -1,13 +1,9 @@
 import Image from "next/image";
+import GalleryCarousel from "./gallery-carousel";
 
 const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
 
 const services = [
-  {
-    icon: "ring",
-    title: "Weddings",
-    copy: "Elegant catering for your big day",
-  },
   {
     icon: "balloons",
     title: "Baby Showers",
@@ -39,26 +35,72 @@ const galleryImages = [
   {
     src: "/gallery/chaat_dahi_bhalla.png",
     alt: "Dahi bhalla chaat grazing table",
+    title: "Dahi bhalla chaat",
+    copy: "Layered classics served in elegant portions",
+    icon: "savory_bite",
   },
   {
-    src: "/main_setup.png",
-    alt: "The Nibble Story dessert and mithai setup",
+    src: "/gallery/chaat_setup.png",
+    alt: "Chaat catering setup",
+    title: "Grazing Tables",
+    copy: "Beautifully curated spreads for every occasion",
+    icon: "grazing_table",
   },
   {
-    src: "/gallery/idli.png",
-    alt: "Mini idli appetizer display",
+    src: "/gallery/chaat_corn.png",
+    alt: "Corn chaat appetizer cups",
+    title: "Corn Chaat",
+    copy: "Bright, savory bites with a playful finish",
+    icon: "savory_bite",
+  },
+  {
+    src: "/gallery/cup_setup_1.jpeg",
+    alt: "Dessert cup setup",
+    title: "Chaat Cups",
+    copy: "Indulgent layers crafted to perfection",
+    icon: "grazing_table",
+  },
+  {
+    src: "/gallery/cup_setup_2.jpeg",
+    alt: "Dessert cup display",
+    title: "Savory Cups",
+    copy: "Indulgent layers crafted to perfection",
+    icon: "grazing_table",
+  },
+  {
+    src: "/gallery/multi_dessert.jpeg",
+    alt: "Assorted dessert cups",
+    title: "Assorted Desserts",
+    copy: "Colorful treats for memorable celebrations",
+    icon: "cupcake",
   },
   {
     src: "/gallery/chaat_gol_gappa.png",
     alt: "Gol gappa chaat cups",
+    title: "Golgappa Station",
+    copy: "An interactive experience that delights all ages",
+    icon: "station",
+  },
+  {
+    src: "/gallery/idli.png",
+    alt: "Mini idli appetizer display",
+    title: "Mini Idli Bites",
+    copy: "Soft, savory bites with flavorful chutneys",
+    icon: "savory_bite",
   },
   {
     src: "/gallery/paneer_sliders.png",
     alt: "Paneer slider bites",
+    title: "Signature Sliders",
+    copy: "Mini bites with maximum flavour",
+    icon: "slider",
   },
   {
     src: "/gallery/paneer_wrap.png",
     alt: "Paneer wrap grazing display",
+    title: "Wraps & Rolls",
+    copy: "Fresh, flavorful and perfectly handheld",
+    icon: "savory_bite",
   },
 ];
 
@@ -264,18 +306,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-cream" id="gallery">
-        <div className="container">
+      <section className="section section-gallery" id="gallery">
+        <div className="container gallery-container">
           <div className="section-heading">
             <span>A Peek Into Our Creations</span>
           </div>
-          <div className="gallery-strip">
-            {galleryImages.map((image) => (
-              <figure className="gallery-card" key={image.src}>
-                <Image src={image.src} alt={image.alt} fill sizes="220px" />
-              </figure>
-            ))}
-          </div>
+          <GalleryCarousel images={galleryImages} />
           <a className="instagram-link" href="https://instagram.com/thenibblestory">
             @thenibblestory
           </a>
