@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import GalleryCarousel from "./gallery-carousel";
 
 const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
@@ -26,8 +27,8 @@ const services = [
   },
   {
     icon: "cutlery",
-    title: "Private Dining",
-    copy: "Intimate experiences, crafted just for you",
+    title: "Intimate Celebrations",
+    copy: "Crafted just for you",
   },
 ];
 
@@ -116,7 +117,7 @@ const reasons = [
     copy: "Presentation-first catering",
   },
   {
-    icon: "chili",
+    icon: "fusion",
     title: "Fusion",
     copy: "Indian flavors with modern creativity",
   },
@@ -129,16 +130,16 @@ const reasons = [
 
 function BrandMark() {
   return (
-    <div className="brand-mark">
+    <Link href="/" className="brand-mark">
       <Image
         src="/nibble_story_logo.png"
         alt="The Nibble Story"
-        width={65}
-        height={65}
+        width={60}
+        height={60}
         priority
         className="brand-logo"
       />
-    </div>
+    </Link>
   );
 }
 
@@ -216,6 +217,14 @@ function Icon({ name }: { name: string }) {
           <path d="M18.5 5.5c-.9.1-1.67.45-2.3 1.05.5 2.1-.05 4.15-1.65 6.15-1.75 2.2-4.42 3.82-8 4.85 1.55 1.65 3.45 2.25 5.7 1.8 2.6-.52 4.75-2.25 6.45-5.2 1.55-2.67 1.7-5 .45-7 .55-.42 1.18-.63 1.85-.65V4.5c-.9 0-1.73.2-2.5 1Z" />
         </svg>
       );
+    case "fusion":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+          <path d="M15 22a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+          <path d="M10.5 9.5a7 7 0 0 1 3 3" opacity="0.5" />
+        </svg>
+      );
     case "heart":
       return (
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -234,16 +243,65 @@ export default function Home() {
         <nav className="site-nav" aria-label="Primary navigation">
           <BrandMark />
           <div className="nav-links">
-            {navItems.map((item) => (
-              <a
-                className={item === "Home" ? "active" : undefined}
-                href={`#${item.toLowerCase()}`}
-                key={item}
-              >
-                {item}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              if (item === "Gallery") {
+                return (
+                  <Link
+                    className=""
+                    href="/gallery"
+                    key={item}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Menus") {
+                return (
+                  <Link
+                    className=""
+                    href="/menus"
+                    key={item}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "About") {
+                return (
+                  <Link
+                    className=""
+                    href="/about"
+                    key={item}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Contact") {
+                return (
+                  <Link
+                    className=""
+                    href="/contact"
+                    key={item}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  className={item === "Home" ? "active" : undefined}
+                  href={`#${item.toLowerCase()}`}
+                  key={item}
+                >
+                  {item}
+                </a>
+              );
+            })}
           </div>
+          <a href="/contact" className="book-now-btn">
+            Book Now
+          </a>
         </nav>
       </header>
 
@@ -281,8 +339,7 @@ export default function Home() {
               </p>
               <div className="hero-divider" aria-hidden="true" />
               <p className="hero-copy">
-                Premium Indian Fusion Catering &amp; Grazing Tables crafted with
-                love, designed to delight.
+                Premium Indian Fusion Catering &amp; Grazing Tables
               </p>
             </div>
           </div>
@@ -337,31 +394,52 @@ export default function Home() {
 
       <footer className="site-footer" id="contact">
         <div className="container footer-grid">
-          <div>
+          <div className="footer-brand">
             <BrandMark />
-            <p>
+            {/* <p>
               Premium Indian Fusion Catering &amp; Grazing Tables crafted with
               love, designed to delight.
-            </p>
+            </p> */}
+            <div className="footer-social">
+              <a href="https://instagram.com/thenibblestory" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.75 1.7 4.9 4.9.06 1.26.07 1.64.07 4.85s0 3.6-.07 4.85c-.15 3.2-1.64 4.75-4.9 4.9-1.25.06-1.64.07-4.85.07s-3.6 0-4.85-.07c-3.26-.15-4.75-1.7-4.9-4.9-.06-1.26-.07-1.64-.07-4.85s0-3.6.07-4.85c.15-3.2 1.64-4.75 4.9-4.9C8.4 2.2 8.8 2.2 12 2.2ZM12 0C8.74 0 8.33 0 7.05.07c-4.35.2-6.78 2.62-6.98 6.98C0 8.33 0 8.74 0 12s0 3.67.07 4.95c.2 4.36 2.63 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67 0 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.07-1.28.07-1.69.07-4.95s0-3.67-.07-4.95c-.2-4.36-2.63-6.78-6.98-6.98C15.67 0 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/>
+                </svg>
+              </a>
+              <a href="https://facebook.com/thenibblestory" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07"/>
+                </svg>
+              </a>
+              <a href="mailto:thenibblestory@gmail.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
+                </svg>
+              </a>
+            </div>
           </div>
           <div>
             <h2>Quick Links</h2>
             <a href="#home">Home</a>
             <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#about">About Us</a>
+            <Link href="/menus">Menus</Link>
+            <Link href="/gallery">Gallery</Link>
+            <Link href="/about">About Us</Link>
+            <a href="#contact">Contact</a>
           </div>
           <div>
             <h2>Serving</h2>
-            <p>Bay Area &amp; Surrounding Areas, California</p>
+            <p>New Jersey &amp; Surrounding Areas</p>
           </div>
           <div>
             <h2>Let&apos;s Connect</h2>
-            <p>(510) 123-4567</p>
-            <p>hello@thenibblestory.com</p>
+            <p>929-238-5263</p>
+            <p>thenibblestory@gmail.com</p>
           </div>
         </div>
-        <p className="copyright">© 2024 The Nibble Story. All Rights Reserved.</p>
+        <div className="copyright-container">
+          <p className="copyright">© 2024 The Nibble Story. All Rights Reserved.</p>
+        </div>
       </footer>
     </main>
   );
