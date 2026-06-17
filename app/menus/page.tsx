@@ -25,7 +25,7 @@ const menuData = {
   smallBites: [
     "Avocado Chana Chaat",
     "Palak Paneer Swirls",
-    "Bharti Paneer Kulcha Bites",
+    "Bhatti Paneer Kulcha Bites",
     "Mexican Chaat Cups",
     "Assorted Crostinis",
     "Crudité Hummus Cups",
@@ -58,13 +58,13 @@ const menuData = {
   ],
   curries: [
     "Makhni Magic Daal",
-    "Classic Chana Dhaba",
-    "Chole Goli Style",
-    "Bhindi Di Kadhi",
+    "Koyla Daal Dhaba",
+    "Chole Gali Style",
+    "Pind Di Kadhi",
     "Paneer Butter Bliss",
-    "Kadai Style Paneer",
+    "Kadahi Style Paneer",
     "Korma Royale",
-    "Acchaar - E - Aloo",
+    "Aachar - E - Aloo",
     "Methi Matar Malai"
   ],
   sides: [
@@ -76,12 +76,12 @@ const menuData = {
   ],
   desserts: [
     "Berry Blossom Kheer",
-    "Malai Rose Rasali Parfait",
-    "Strawberry Pudding",
-    "Gujar Halwa Tarts",
-    "Gulkh Rabdi Bowls",
+    "Motichoor Rabdi Parfait",
+    "Gulab Jamun Pudding",
+    "Gajar Halwa Tarts",
+    "Jalebi Rabdi Bowls",
     "Very Berry Trifle",
-    "Mango Rasam Tiramisu"
+    "Mango Rasmalai Tiramisu"
   ],
   drinks: [
     "Bubbly Peach",
@@ -425,7 +425,7 @@ export default function MenusPage() {
             <div className="menu-row">
               <div className="menu-image">
                 <Image
-                  src="/gallery/paneer_naan.png"
+                  src="/gallery/biryani.png"
                   alt="Meals"
                   fill
                   className="menu-img"
@@ -585,7 +585,7 @@ export default function MenusPage() {
           </div>
         </div>
         <div className="copyright-container">
-          <p className="copyright">© 2024 The Nibble Story. All Rights Reserved.</p>
+          <p className="copyright">© 2026 The Nibble Story. All Rights Reserved.</p>
         </div>
       </footer>
     </main>

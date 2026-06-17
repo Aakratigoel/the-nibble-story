@@ -394,7 +394,7 @@ export default function AboutPage() {
           </div>
         </div>
         <div className="copyright-container">
-          <p className="copyright">© 2024 The Nibble Story. All Rights Reserved.</p>
+          <p className="copyright">© 2026 The Nibble Story. All Rights Reserved.</p>
         </div>
       </footer>
     </main>

@@ -34,7 +34,7 @@ const galleryItems: GalleryItem[] = [
     alt: "Elegant Setup",
     title: "Good food. Good mood.",
     description: "Great company",
-    category: ["all", "setups", "savory-bites"],
+    category: ["all", "setups"],
     size: "large",
   },
   {
@@ -42,7 +42,7 @@ const galleryItems: GalleryItem[] = [
     alt: "Holi Festival Setup",
     title: "Holi Festival Setup",
     description: "Vibrant colors celebrating the festival of joy",
-    category: ["all", "setups", "savory-bites"],
+    category: ["all", "setups"],
     size: "large",
   },
   {
@@ -82,7 +82,7 @@ const galleryItems: GalleryItem[] = [
     alt: "Chaat Spread",
     title: "Sip. Savor. Celebrate",
     description: "An evening to remember",
-    category: ["all", "setups", "savory-bites"],
+    category: ["all", "setups"],
     size: "medium",
   },
   {
@@ -138,7 +138,7 @@ const galleryItems: GalleryItem[] = [
     alt: "Bhelpuri Chaat Cups",
     title: "Bhelpuri Chaat Cups",
     description: "Crunchy and tangy street food in elegant portions",
-    category: ["all", "savory-bites"],
+    category: ["all", "savory-bites", "setups"],
     size: "medium",
   },
   {
@@ -146,7 +146,7 @@ const galleryItems: GalleryItem[] = [
     alt: "Savory Cups",
     title: "Savory Cups",
     description: "Perfectly portioned appetizers",
-    category: ["all", "savory-bites"],
+    category: ["all", "savory-bites", "setups"],
     size: "medium",
   },
   {
@@ -162,6 +162,14 @@ const galleryItems: GalleryItem[] = [
     alt: "Gourmet Sliders",
     title: "Signature Sliders",
     description: "Mini bites with maximum flavor",
+    category: ["all", "savory-bites"],
+    size: "medium",
+  },
+  {
+    src: "/gallery/biryani.png",
+    alt: "Biryani",
+    title: "Fragrant Biryani",
+    description: "Aromatic rice with perfect spices",
     category: ["all", "savory-bites"],
     size: "medium",
   },
@@ -507,7 +515,7 @@ export default function GalleryPage() {
           </div>
         </div>
         <div className="copyright-container">
-          <p className="copyright">© 2024 The Nibble Story. All Rights Reserved.</p>
+          <p className="copyright">© 2026 The Nibble Story. All Rights Reserved.</p>
         </div>
       </footer>
     </main>

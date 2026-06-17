@@ -646,12 +646,7 @@ export default function ContactPage() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p className="copyright">© 2024 The Nibble Story. All Rights Reserved.</p>
-          <div className="footer-links">
-            <a href="/privacy">PRIVACY POLICY</a>
-            <span>|</span>
-            <a href="/terms">TERMS & CONDITIONS</a>
-          </div>
+          <p className="copyright">© 2026 The Nibble Story. All Rights Reserved.</p>
         </div>
       </footer>
     </main>
