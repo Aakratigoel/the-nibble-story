@@ -668,8 +668,25 @@
   }
 
   .about-book-now-btn {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
+    display: none;
+  }
+
+  .about-burger-menu {
+    display: flex;
+  }
+
+  .about-header::before {
+    width: 200px;
+    height: 180px;
+    left: -80px;
+    bottom: -20px;
+  }
+
+  .about-header::after {
+    width: 200px;
+    height: 180px;
+    right: -80px;
+    bottom: -20px;
   }
 
   .about-header h1 {

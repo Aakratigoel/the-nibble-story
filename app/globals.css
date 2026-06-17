@@ -453,7 +453,7 @@ svg {
   color: #8b7a4d;
   font-size: 1.3rem;
   position: absolute;
-  background: rgba(159, 181, 168, 1);
+  background: #9fb5a8;
   padding: 0 1rem;
   left: 50%;
   transform: translateX(-50%);
@@ -557,6 +557,14 @@ svg {
   padding: 4.5rem 0;
 }
 
+#services.section {
+  padding: 4.5rem 0;
+}
+
+#services .section-heading {
+  display: none;
+}
+
 .section-white {
   background: #ffffff;
 }
@@ -624,121 +632,37 @@ svg {
 }
 
 .service-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(140px, 1fr));
-  max-width: 980px;
-  margin: 0 auto;
-}
-
-.service-card {
-  min-height: 172px;
-  padding: 0 1.35rem;
-  color: var(--brown);
-  text-align: center;
-  border-right: 1px solid rgba(106, 94, 76, 0.18);
-}
-
-.service-card:last-child {
-  border-right: 0;
-}
-
-/* Service Carousel (Mobile Only) */
-.service-carousel {
   display: none;
-  position: relative;
-  align-items: center;
-  gap: 1rem;
-  margin: 1rem 0 0;
 }
 
-.service-carousel-track {
-  flex: 1;
-  overflow: hidden;
+
+/* Service Desktop Image */
+.service-desktop-image {
+  display: block;
+  width: 100%;
+  padding: 0 0.5rem;
 }
 
-.service-card-mobile {
-  min-height: 200px;
-  padding: 1.5rem;
-  color: var(--brown);
-  text-align: center;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.service-desktop-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 20px;
 }
 
-.service-card-mobile svg {
-  width: 58px;
-  height: 58px;
-  margin: 0 auto 1.2rem;
-  fill: currentColor;
-}
-
-.service-card-mobile h2 {
-  margin: 0 0 0.65rem;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.service-card-mobile p {
-  margin: 0;
-  color: #4f514a;
-  font-size: 0.75rem;
-  line-height: 1.55;
-}
-
-.service-arrow {
-  width: 44px;
-  height: 44px;
-  border: 2px solid rgba(106, 94, 76, 0.3);
-  border-radius: 50%;
-  background: #ffffff;
-  color: var(--brown);
-  cursor: pointer;
-  transition: all 250ms ease;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.service-arrow:hover {
-  background: #f7f4ee;
-  border-color: var(--brown);
-  transform: scale(1.05);
-}
-
-.service-arrow svg {
-  width: 20px;
-  height: 20px;
-}
-
-.service-dots {
+/* Service Mobile Image */
+.service-mobile-image {
   display: none;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
 }
 
-.service-dot {
-  width: 8px;
-  height: 8px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(106, 94, 76, 0.3);
-  cursor: pointer;
-  transition: all 200ms ease;
-  padding: 0;
+.service-mobile-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
-.service-dot.active {
-  background: var(--brown);
-  width: 24px;
-  border-radius: 4px;
-}
 
-.service-card svg,
 .reason-card svg,
 .reason-card-mobile svg {
   width: 58px;
@@ -747,7 +671,6 @@ svg {
   fill: currentColor;
 }
 
-.service-card h2,
 .reason-card h3,
 .reason-card-mobile h3 {
   margin: 0 0 0.65rem;
@@ -757,7 +680,6 @@ svg {
   text-transform: uppercase;
 }
 
-.service-card p,
 .reason-card p {
   margin: 0;
   color: #4f514a;
@@ -967,6 +889,7 @@ svg {
   position: relative;
   padding: 2.5rem 0 3rem;
   overflow: hidden;
+  overflow-x: clip;
   color: #ffffff;
   background-image: url('/testimonial_bg.png');
   background-size: cover;
@@ -1144,6 +1067,17 @@ svg {
   object-fit: cover;
 }
 
+.author-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .author-info {
   flex: 1;
 }
@@ -1221,7 +1155,7 @@ svg {
   fill: rgba(255, 255, 255, 0.6);
 }
 
-.why-section {
+.site-shell .why-section {
   position: relative;
   padding: 3.8rem 0 4.2rem;
   overflow: hidden;
@@ -1502,14 +1436,6 @@ svg {
     object-position: right center;
   }
 
-  .service-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .service-card:nth-child(3) {
-    border-right: 0;
-  }
-
   .gallery-carousel {
     padding-inline: 2.4rem;
   }
@@ -1624,12 +1550,14 @@ svg {
     position: relative;
     top: 0;
     order: 2;
-    height: 400px;
+    height: 480px;
     margin-top: 1.5rem;
+    margin-bottom: -40px;
   }
 
   .hero-image {
     object-position: center center;
+    object-fit: cover;
   }
 
   .hero-overlay {
@@ -1640,10 +1568,11 @@ svg {
     background: linear-gradient(
       180deg,
       rgba(159, 181, 168, 1) 0%,
-      rgba(159, 181, 168, 1) 30%,
-      rgba(159, 181, 168, 0.68) 40%,
-      rgba(159, 181, 168, 0.22) 50%,
-      rgba(159, 181, 168, 0) 60%,
+      rgba(159, 181, 168, 0.95) 20%,
+      rgba(159, 181, 168, 0.75) 35%,
+      rgba(159, 181, 168, 0.45) 50%,
+      rgba(159, 181, 168, 0.15) 65%,
+      rgba(159, 181, 168, 0) 80%,
       rgba(159, 181, 168, 0) 100%
     );
   }
@@ -1703,18 +1632,6 @@ svg {
     height: 18px;
   }
 
-  .hero-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(159, 181, 168, 1) 0%,
-      rgba(159, 181, 168, 0.95) 20%,
-      rgba(159, 181, 168, 0.85) 40%,
-      rgba(159, 181, 168, 0.65) 60%,
-      rgba(159, 181, 168, 0.35) 75%,
-      rgba(159, 181, 168, 0) 100%
-    );
-  }
-
   .hero-leaf {
     display: none;
   }
@@ -1724,16 +1641,37 @@ svg {
     gap: 0.8rem;
   }
 
+  #services {
+    padding: 1rem 0 !important;
+  }
+
+  .section-white {
+    padding: 0;
+  }
+
   .service-grid {
     display: none;
   }
 
-  .service-carousel {
-    display: flex;
+  .service-desktop-image {
+    display: none;
   }
 
-  .service-dots {
-    display: flex;
+  .service-mobile-image {
+    display: block;
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+  }
+
+  .service-mobile-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+  }
+
+  #services .section-heading {
+    display: none;
   }
 
   .reason-grid {
@@ -1753,7 +1691,8 @@ svg {
   }
 
   .section-gallery {
-    border-radius: 0 0 34px 34px;
+    border-radius: 0;
+    margin-bottom: 0;
   }
 
   .gallery-carousel {
@@ -1814,8 +1753,9 @@ svg {
   }
 
   .hero-image-wrapper {
-    height: 320px;
+    height: 420px;
     margin-top: 1rem;
+    margin-bottom: -40px;
   }
 
   .hero-content-wrapper {
@@ -1836,22 +1776,11 @@ svg {
     height: 30px;
   }
 
-  .service-arrow {
-    width: 40px;
-    height: 40px;
+  .section-white {
+    padding-top: 5.5rem;
   }
 
-  .service-arrow svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .service-card-mobile {
-    min-height: 180px;
-    padding: 1.25rem;
-  }
-
-  .service-dots {
-    margin-top: 1rem;
+  .service-mobile-image {
+    display: block;
   }
 }

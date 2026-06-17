@@ -7,34 +7,6 @@ import GalleryCarousel from "./gallery-carousel";
 
 const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
 
-const services = [
-  {
-    icon: "balloons",
-    title: "Baby Showers",
-    copy: "Beautiful spreads for beautiful beginnings",
-  },
-  {
-    icon: "cake",
-    title: "Birthdays",
-    copy: "Delicious spreads for memorable birthdays",
-  },
-  {
-    icon: "briefcase",
-    title: "Corporate Events",
-    copy: "Professional catering that leaves an impression",
-  },
-  {
-    icon: "diya",
-    title: "Festivals",
-    copy: "Traditional flavors with a modern twist",
-  },
-  {
-    icon: "cutlery",
-    title: "Intimate Celebrations",
-    copy: "Crafted just for you",
-  },
-];
-
 const galleryImages = [
   {
     src: "/gallery/chaat_dahi_bhalla.png",
@@ -133,24 +105,21 @@ const reasons = [
 
 const testimonials = [
   {
-    quote: "The Nibble Story catered our daughter's baby shower and it was absolutely perfect! The food was delicious, beautifully presented and the whole setup was stunning.",
-    name: "Priya S.",
-    event: "BABY SHOWER",
-    image: "/gallery/setup_2.png",
+    quote: "Few people can create delicious food, and even fewer can present it so beautifully. Sakshi is a creative chef whose food is absolutely delicious. The thoughtful presentation of her grazing tables elevates the entire experience and makes the food even more enjoyable. More power to you, Sakshi! Wishing The Nibble Story continued success and many more memorable events ahead.",
+    name: "Ruchi",
+    event: "CLIENT",
     rating: 5,
   },
   {
-    quote: "From the planning to the execution, everything was seamless. The team was professional, attentive and made our son's birthday celebration so special.",
-    name: "Rahul & Neha",
-    event: "BIRTHDAY CELEBRATION",
-    image: "/gallery/chaat_setup.png",
+    quote: "Nibble Story completely took the stress out of hosting. From shopping and cooking to beautifully setting up the meals, everything was handled seamlessly and with such care and attention to detail. It made entertaining so easy and enjoyable for us. Beyond the delicious food and lovely presentation, Sakshi is such a pleasant person to work with — professional, warm, and incredibly accommodating. I can't recommend Nibble Story highly enough for anyone looking to host effortlessly and truly enjoy their guests.",
+    name: "Krishna M",
+    event: "CLIENT",
     rating: 5,
   },
   {
-    quote: "The grazing table was a showstopper! Every detail was thoughtfully curated and the flavors were incredible. Highly recommend The Nibble Story for any special occasion.",
-    name: "Aditi & Karan",
-    event: "ENGAGEMENT PARTY",
-    image: "/gallery/setup_2.png",
+    quote: "I recently had the pleasure of enjoying food catered by The Nibble Story at an event, and it was truly outstanding. Every dish was beautifully presented and packed with flavor. A special highlight was the tiramisu cups — my 7-year-old absolutely loved it and couldn't stop talking about how delicious it was. It was light, perfectly balanced, and the ideal ending to a wonderful meal. I thoroughly enjoyed every bite and would gladly recommend their catering services to anyone looking for delicious food and exceptional quality.",
+    name: "Kanu Garg",
+    event: "CLIENT",
     rating: 5,
   },
 ];
@@ -265,7 +234,6 @@ function Icon({ name }: { name: string }) {
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [currentService, setCurrentService] = useState(0);
   const [currentReason, setCurrentReason] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -275,14 +243,6 @@ export default function Home() {
 
   const prevTestimonial = () => {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  const nextService = () => {
-    setCurrentService((prev) => (prev + 1) % services.length);
-  };
-
-  const prevService = () => {
-    setCurrentService((prev) => (prev - 1 + services.length) % services.length);
   };
 
   const nextReason = () => {
@@ -514,51 +474,23 @@ export default function Home() {
           <div className="section-heading">
             <span>We Cater To</span>
           </div>
-          <div className="service-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.title}>
-                <Icon name={service.icon} />
-                <h2>{service.title}</h2>
-                <p>{service.copy}</p>
-              </article>
-            ))}
+          <div className="service-desktop-image">
+            <Image
+              src="/gallery/service_desktop.png"
+              alt="Our Catering Services"
+              width={1200}
+              height={400}
+              className="service-desktop-img"
+            />
           </div>
-          <div className="service-carousel">
-            <button
-              className="service-arrow service-arrow-left"
-              onClick={prevService}
-              aria-label="Previous service"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <div className="service-carousel-track">
-              <article className="service-card-mobile">
-                <Icon name={services[currentService].icon} />
-                <h2>{services[currentService].title}</h2>
-                <p>{services[currentService].copy}</p>
-              </article>
-            </div>
-            <button
-              className="service-arrow service-arrow-right"
-              onClick={nextService}
-              aria-label="Next service"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          </div>
-          <div className="service-dots">
-            {services.map((_, index) => (
-              <button
-                key={index}
-                className={`service-dot ${index === currentService ? 'active' : ''}`}
-                onClick={() => setCurrentService(index)}
-                aria-label={`Go to service ${index + 1}`}
-              />
-            ))}
+          <div className="service-mobile-image">
+            <Image
+              src="/gallery/services_mobile.png"
+              alt="Our Catering Services"
+              width={800}
+              height={600}
+              className="service-mobile-img"
+            />
           </div>
         </div>
       </section>
@@ -614,13 +546,8 @@ export default function Home() {
                       <span className="divider-heart">♡</span>
                     </div>
                     <div className="testimonial-author">
-                      <div className="author-image">
-                        <Image
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          width={45}
-                          height={45}
-                        />
+                      <div className="author-image author-initials">
+                        {testimonial.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div className="author-info">
                         <p className="author-name">{testimonial.name}</p>

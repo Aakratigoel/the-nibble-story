@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./contact.css";
 
 function BrandMark() {
@@ -21,6 +21,7 @@ function BrandMark() {
 
 export default function ContactPage() {
   const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -34,6 +35,25 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   const handleCateringStyleChange = (style: string) => {
     setFormData((prev) => ({
@@ -159,8 +179,108 @@ export default function ContactPage() {
           <a href="/contact" className="contact-book-now-btn">
             Book Now
           </a>
+          <button
+            className="contact-burger-menu"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+          >
+            <span className={`contact-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+            <span className={`contact-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+            <span className={`contact-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Backdrop */}
+      {isMenuOpen && (
+        <div
+          className="contact-mobile-menu-backdrop"
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile Menu Overlay */}
+      <div className={`contact-mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+        <div className="contact-mobile-menu-content">
+          {navItems.map((item) => {
+            if (item === "Home") {
+              return (
+                <Link
+                  key={item}
+                  href="/"
+                  className="contact-mobile-menu-link"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            }
+            if (item === "Menus") {
+              return (
+                <Link
+                  key={item}
+                  href="/menus"
+                  className="contact-mobile-menu-link"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            }
+            if (item === "Gallery") {
+              return (
+                <Link
+                  key={item}
+                  href="/gallery"
+                  className="contact-mobile-menu-link"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            }
+            if (item === "About") {
+              return (
+                <Link
+                  key={item}
+                  href="/about"
+                  className="contact-mobile-menu-link"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            }
+            if (item === "Contact") {
+              return (
+                <Link
+                  key={item}
+                  href="/contact"
+                  className="contact-mobile-menu-link active"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            }
+            return (
+              <a
+                key={item}
+                href={`/#${item.toLowerCase()}`}
+                className="contact-mobile-menu-link"
+                onClick={closeMenu}
+              >
+                {item}
+              </a>
+            );
+          })}
+          <a href="/contact" className="contact-mobile-book-now-btn" onClick={closeMenu}>
+            Book Now
+          </a>
+        </div>
+      </div>
 
       {/* Hero Section */}
       <section className="contact-hero">

@@ -578,6 +578,20 @@
     display: flex;
   }
 
+  .gallery-header::before {
+    width: 200px;
+    height: 180px;
+    left: -80px;
+    bottom: -20px;
+  }
+
+  .gallery-header::after {
+    width: 200px;
+    height: 180px;
+    right: -80px;
+    bottom: -20px;
+  }
+
   .gallery-header {
     padding: 1.5rem 0 2.5rem;
   }
