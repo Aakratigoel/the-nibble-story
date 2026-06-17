@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./menus.css";
 
 function BrandMark() {
@@ -93,6 +93,7 @@ const menuData = {
 
 export default function MenusPage() {
   const [activeCategory, setActiveCategory] = useState<MenuCategory | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToCategory = (category: MenuCategory) => {
     setActiveCategory(category);
@@ -101,6 +102,25 @@ export default function MenusPage() {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
 
@@ -179,8 +199,108 @@ export default function MenusPage() {
             <a href="/contact" className="menus-book-now-btn">
               Book Now
             </a>
+            <button
+              className="menus-burger-menu"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              <span className={`menus-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+              <span className={`menus-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+              <span className={`menus-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+            </button>
           </div>
         </nav>
+
+        {/* Mobile Menu Backdrop */}
+        {isMenuOpen && (
+          <div
+            className="menus-mobile-menu-backdrop"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Mobile Menu Overlay */}
+        <div className={`menus-mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+          <div className="menus-mobile-menu-content">
+            {navItems.map((item) => {
+              if (item === "Home") {
+                return (
+                  <Link
+                    key={item}
+                    href="/"
+                    className="menus-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Menus") {
+                return (
+                  <Link
+                    key={item}
+                    href="/menus"
+                    className="menus-mobile-menu-link active"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Gallery") {
+                return (
+                  <Link
+                    key={item}
+                    href="/gallery"
+                    className="menus-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Contact") {
+                return (
+                  <Link
+                    key={item}
+                    href="/contact"
+                    className="menus-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "About") {
+                return (
+                  <Link
+                    key={item}
+                    href="/about"
+                    className="menus-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              return (
+                <Link
+                  key={item}
+                  href={`/#${item.toLowerCase()}`}
+                  className="menus-mobile-menu-link"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            })}
+            <a href="/contact" className="menus-mobile-book-now-btn" onClick={closeMenu}>
+              Book Now
+            </a>
+          </div>
+        </div>
 
         <div className="menus-header-content">
           <h1>Menus</h1>

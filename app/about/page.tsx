@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import "./about.css";
 
 function BrandMark() {
@@ -19,6 +20,27 @@ function BrandMark() {
 }
 
 export default function AboutPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
 
   return (
@@ -92,8 +114,108 @@ export default function AboutPage() {
             <a href="/contact" className="about-book-now-btn">
               Book Now
             </a>
+            <button
+              className="about-burger-menu"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              <span className={`about-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+              <span className={`about-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+              <span className={`about-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+            </button>
           </div>
         </nav>
+
+        {/* Mobile Menu Backdrop */}
+        {isMenuOpen && (
+          <div
+            className="about-mobile-menu-backdrop"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Mobile Menu Overlay */}
+        <div className={`about-mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+          <div className="about-mobile-menu-content">
+            {navItems.map((item) => {
+              if (item === "Home") {
+                return (
+                  <Link
+                    key={item}
+                    href="/"
+                    className="about-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Menus") {
+                return (
+                  <Link
+                    key={item}
+                    href="/menus"
+                    className="about-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Gallery") {
+                return (
+                  <Link
+                    key={item}
+                    href="/gallery"
+                    className="about-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "About") {
+                return (
+                  <Link
+                    key={item}
+                    href="/about"
+                    className="about-mobile-menu-link active"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Contact") {
+                return (
+                  <Link
+                    key={item}
+                    href="/contact"
+                    className="about-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              return (
+                <Link
+                  key={item}
+                  href={`/#${item.toLowerCase()}`}
+                  className="about-mobile-menu-link"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            })}
+            <a href="/contact" className="about-mobile-book-now-btn" onClick={closeMenu}>
+              Book Now
+            </a>
+          </div>
+        </div>
 
         <div className="about-header-content">
           <h1>About Us</h1>

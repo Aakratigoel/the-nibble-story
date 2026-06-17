@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import GalleryCarousel from "./gallery-carousel";
 
 const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
@@ -128,6 +131,30 @@ const reasons = [
   },
 ];
 
+const testimonials = [
+  {
+    quote: "The Nibble Story catered our daughter's baby shower and it was absolutely perfect! The food was delicious, beautifully presented and the whole setup was stunning.",
+    name: "Priya S.",
+    event: "BABY SHOWER",
+    image: "/gallery/setup_2.png",
+    rating: 5,
+  },
+  {
+    quote: "From the planning to the execution, everything was seamless. The team was professional, attentive and made our son's birthday celebration so special.",
+    name: "Rahul & Neha",
+    event: "BIRTHDAY CELEBRATION",
+    image: "/gallery/chaat_setup.png",
+    rating: 5,
+  },
+  {
+    quote: "The grazing table was a showstopper! Every detail was thoughtfully curated and the flavors were incredible. Highly recommend The Nibble Story for any special occasion.",
+    name: "Aditi & Karan",
+    event: "ENGAGEMENT PARTY",
+    image: "/gallery/setup_2.png",
+    rating: 5,
+  },
+];
+
 function BrandMark() {
   return (
     <Link href="/" className="brand-mark">
@@ -237,6 +264,54 @@ function Icon({ name }: { name: string }) {
 }
 
 export default function Home() {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [currentService, setCurrentService] = useState(0);
+  const [currentReason, setCurrentReason] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const nextService = () => {
+    setCurrentService((prev) => (prev + 1) % services.length);
+  };
+
+  const prevService = () => {
+    setCurrentService((prev) => (prev - 1 + services.length) % services.length);
+  };
+
+  const nextReason = () => {
+    setCurrentReason((prev) => (prev + 1) % reasons.length);
+  };
+
+  const prevReason = () => {
+    setCurrentReason((prev) => (prev - 1 + reasons.length) % reasons.length);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   return (
     <main className="site-shell">
       <header className="site-header">
@@ -302,7 +377,95 @@ export default function Home() {
           <a href="/contact" className="book-now-btn">
             Book Now
           </a>
+          <button
+            className="burger-menu"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+          >
+            <span className={`burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+            <span className={`burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+            <span className={`burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+          </button>
         </nav>
+
+        {/* Mobile Menu Backdrop */}
+        {isMenuOpen && (
+          <div
+            className="mobile-menu-backdrop"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Mobile Menu Overlay */}
+        <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+          <div className="mobile-menu-content">
+            {navItems.map((item) => {
+              if (item === "Gallery") {
+                return (
+                  <Link
+                    className="mobile-menu-link"
+                    href="/gallery"
+                    key={item}
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Menus") {
+                return (
+                  <Link
+                    className="mobile-menu-link"
+                    href="/menus"
+                    key={item}
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "About") {
+                return (
+                  <Link
+                    className="mobile-menu-link"
+                    href="/about"
+                    key={item}
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Contact") {
+                return (
+                  <Link
+                    className="mobile-menu-link"
+                    href="/contact"
+                    key={item}
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  className={`mobile-menu-link ${item === "Home" ? "active" : ""}`}
+                  href={`#${item.toLowerCase()}`}
+                  key={item}
+                  onClick={closeMenu}
+                >
+                  {item}
+                </a>
+              );
+            })}
+            <a href="/contact" className="mobile-book-now-btn" onClick={closeMenu}>
+              Book Now
+            </a>
+          </div>
+        </div>
       </header>
 
       <section className="hero-section" id="home">
@@ -360,6 +523,43 @@ export default function Home() {
               </article>
             ))}
           </div>
+          <div className="service-carousel">
+            <button
+              className="service-arrow service-arrow-left"
+              onClick={prevService}
+              aria-label="Previous service"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <div className="service-carousel-track">
+              <article className="service-card-mobile">
+                <Icon name={services[currentService].icon} />
+                <h2>{services[currentService].title}</h2>
+                <p>{services[currentService].copy}</p>
+              </article>
+            </div>
+            <button
+              className="service-arrow service-arrow-right"
+              onClick={nextService}
+              aria-label="Next service"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+          <div className="service-dots">
+            {services.map((_, index) => (
+              <button
+                key={index}
+                className={`service-dot ${index === currentService ? 'active' : ''}`}
+                onClick={() => setCurrentService(index)}
+                aria-label={`Go to service ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -375,11 +575,96 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="testimonials-section">
+        <div className="testimonials-leaf testimonials-leaf-left" aria-hidden="true" />
+        <div className="testimonials-leaf testimonials-leaf-right" aria-hidden="true" />
+        <div className="container">
+          <div className="testimonials-header">
+            <p className="testimonials-eyebrow">KIND WORDS</p>
+            <div className="testimonials-ornament" />
+            <h2>What Our Clients Say</h2>
+            <p className="testimonials-subtitle">Creating memorable celebrations, one bite at a time. ♡</p>
+          </div>
+
+          <div className="testimonials-carousel">
+            <button
+              className="testimonial-arrow testimonial-arrow-left"
+              onClick={prevTestimonial}
+              aria-label="Previous testimonial"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+
+            <div className="testimonials-grid">
+              {[0, 1, 2].map((offset) => {
+                const index = (currentTestimonial + offset) % testimonials.length;
+                const testimonial = testimonials[index];
+                return (
+                  <div key={index} className="testimonial-card">
+                    <div className="quote-icon">
+                      <svg viewBox="0 0 48 48" fill="currentColor">
+                        <path d="M12 34h8l4-8V14H12v12h8zm18 0h8l4-8V14H30v12h8z" />
+                      </svg>
+                    </div>
+                    <p className="testimonial-quote">{testimonial.quote}</p>
+                    <div className="testimonial-divider">
+                      <span className="divider-heart">♡</span>
+                    </div>
+                    <div className="testimonial-author">
+                      <div className="author-image">
+                        <Image
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          width={45}
+                          height={45}
+                        />
+                      </div>
+                      <div className="author-info">
+                        <p className="author-name">{testimonial.name}</p>
+                        <p className="author-event">{testimonial.event}</p>
+                      </div>
+                    </div>
+                    <div className="testimonial-leaf-decoration" />
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              className="testimonial-arrow testimonial-arrow-right"
+              onClick={nextTestimonial}
+              aria-label="Next testimonial"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="testimonials-footer">
+            <svg className="footer-arrow-left" viewBox="0 0 48 24" fill="currentColor">
+              <path d="M0 12l12-8v5h24v6H12v5z" />
+              <path d="M18 12l12-8v5h6v6h-6v5z" opacity="0.5" />
+            </svg>
+            <span>TRUSTED FOR LIFE'S MOST SPECIAL MOMENTS</span>
+            <svg className="footer-arrow-right" viewBox="0 0 48 24" fill="currentColor">
+              <path d="M48 12l-12-8v5H12v6h24v5z" />
+              <path d="M30 12l-12-8v5h-6v6h6v5z" opacity="0.5" />
+            </svg>
+          </div>
+        </div>
+      </section>
+
       <section className="why-section" id="about">
         <div className="why-leaf why-leaf-left" aria-hidden="true" />
         <div className="why-leaf why-leaf-right" aria-hidden="true" />
         <div className="container">
           <h2>Why The Nibble Story?</h2>
+
+          {/* Desktop Grid */}
           <div className="reason-grid">
             {reasons.map((reason) => (
               <article className="reason-card" key={reason.title}>
@@ -387,6 +672,47 @@ export default function Home() {
                 <h3>{reason.title}</h3>
                 <p>{reason.copy}</p>
               </article>
+            ))}
+          </div>
+
+          {/* Mobile Carousel */}
+          <div className="reason-carousel">
+            <button
+              className="reason-arrow reason-arrow-left"
+              onClick={prevReason}
+              aria-label="Previous reason"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+
+            <div className="reason-card-mobile">
+              <Icon name={reasons[currentReason].icon} />
+              <h3>{reasons[currentReason].title}</h3>
+              <p>{reasons[currentReason].copy}</p>
+            </div>
+
+            <button
+              className="reason-arrow reason-arrow-right"
+              onClick={nextReason}
+              aria-label="Next reason"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Carousel Dots */}
+          <div className="reason-dots">
+            {reasons.map((_, index) => (
+              <button
+                key={index}
+                className={`reason-dot ${index === currentReason ? 'active' : ''}`}
+                onClick={() => setCurrentReason(index)}
+                aria-label={`Go to reason ${index + 1}`}
+              />
             ))}
           </div>
         </div>

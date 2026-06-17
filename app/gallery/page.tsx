@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import "./gallery.css";
 
@@ -200,10 +200,30 @@ const categories = [
 
 export default function GalleryPage() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const filteredItems = galleryItems.filter((item) =>
     item.category.includes(activeFilter)
   );
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   const navItems = ["Home", "Services", "Menus", "Gallery", "About", "Contact"];
 
@@ -282,8 +302,108 @@ export default function GalleryPage() {
             <a href="/contact" className="gallery-book-now-btn">
               Book Now
             </a>
+            <button
+              className="gallery-burger-menu"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              <span className={`gallery-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+              <span className={`gallery-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+              <span className={`gallery-burger-line ${isMenuOpen ? 'open' : ''}`}></span>
+            </button>
           </div>
         </nav>
+
+        {/* Mobile Menu Backdrop */}
+        {isMenuOpen && (
+          <div
+            className="gallery-mobile-menu-backdrop"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Mobile Menu Overlay */}
+        <div className={`gallery-mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+          <div className="gallery-mobile-menu-content">
+            {navItems.map((item) => {
+              if (item === "Home") {
+                return (
+                  <Link
+                    key={item}
+                    href="/"
+                    className="gallery-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Menus") {
+                return (
+                  <Link
+                    key={item}
+                    href="/menus"
+                    className="gallery-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Gallery") {
+                return (
+                  <Link
+                    key={item}
+                    href="/gallery"
+                    className="gallery-mobile-menu-link active"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "Contact") {
+                return (
+                  <Link
+                    key={item}
+                    href="/contact"
+                    className="gallery-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (item === "About") {
+                return (
+                  <Link
+                    key={item}
+                    href="/about"
+                    className="gallery-mobile-menu-link"
+                    onClick={closeMenu}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              return (
+                <Link
+                  key={item}
+                  href={`/#${item.toLowerCase()}`}
+                  className="gallery-mobile-menu-link"
+                  onClick={closeMenu}
+                >
+                  {item}
+                </Link>
+              );
+            })}
+            <a href="/contact" className="gallery-mobile-book-now-btn" onClick={closeMenu}>
+              Book Now
+            </a>
+          </div>
+        </div>
 
         <div className="gallery-header-content">
           <p className="gallery-eyebrow">Catering &amp; Events</p>
