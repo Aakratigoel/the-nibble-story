@@ -477,7 +477,7 @@ export default function ContactPage() {
             </div>
 
             {/* Tell Us More */}
-            <div className="form-group">
+            <div className="form-group form-group-spaced">
               <h3 className="form-section-title">TELL US MORE</h3>
               <textarea
                 id="message"

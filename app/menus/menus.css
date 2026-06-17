@@ -628,19 +628,22 @@
   .category-buttons {
     gap: 0;
     flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .category-btn {
     padding: 0.6rem 1.2rem;
     border-right: 1px solid rgba(111, 142, 127, 0.2);
+    border-bottom: 1px solid rgba(111, 142, 127, 0.2);
   }
 
-  .category-btn:nth-child(3) {
+  .category-btn:nth-child(3n) {
     border-right: none;
   }
 
-  .category-btn:last-child {
-    border-right: none;
+  .category-btn:nth-last-child(-n+3) {
+    border-bottom: none;
   }
 
   .category-btn span {

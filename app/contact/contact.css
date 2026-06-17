@@ -449,6 +449,10 @@
   gap: 0.5rem;
 }
 
+.form-group-spaced {
+  margin-top: 2rem;
+}
+
 .form-group label {
   color: #4a4a4a;
   font-family: 'Inter', sans-serif;
