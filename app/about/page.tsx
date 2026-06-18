@@ -384,8 +384,8 @@ export default function AboutPage() {
           </div>
           <div>
             <h2>Let&apos;s Connect</h2>
-            <p>929-238-5263</p>
-            <p>thenibblestory@gmail.com</p>
+            <p><a href="tel:929-238-5263">929-238-5263</a></p>
+            <p><a href="mailto:thenibblestory@gmail.com">thenibblestory@gmail.com</a></p>
           </div>
         </div>
         <div className="copyright-container">
