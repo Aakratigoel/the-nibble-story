@@ -335,7 +335,7 @@ export default function Home() {
             })}
           </div>
           <a href="/contact" className="book-now-btn">
-            Book Now
+            Inquire Now
           </a>
           <button
             className="burger-menu"
@@ -422,7 +422,7 @@ export default function Home() {
               );
             })}
             <a href="/contact" className="mobile-book-now-btn" onClick={closeMenu}>
-              Book Now
+              Inquire Now
             </a>
           </div>
         </div>
@@ -551,7 +551,6 @@ export default function Home() {
                       </div>
                       <div className="author-info">
                         <p className="author-name">{testimonial.name}</p>
-                        <p className="author-event">{testimonial.event}</p>
                       </div>
                     </div>
                     <div className="testimonial-leaf-decoration" />

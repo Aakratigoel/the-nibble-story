@@ -112,7 +112,7 @@ export default function AboutPage() {
               })}
             </div>
             <a href="/contact" className="about-book-now-btn">
-              Book Now
+              Inquire Now
             </a>
             <button
               className="about-burger-menu"
@@ -212,7 +212,7 @@ export default function AboutPage() {
               );
             })}
             <a href="/contact" className="about-mobile-book-now-btn" onClick={closeMenu}>
-              Book Now
+              Inquire Now
             </a>
           </div>
         </div>

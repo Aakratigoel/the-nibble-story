@@ -197,6 +197,22 @@ const galleryItems: GalleryItem[] = [
     category: ["all", "savory-bites"],
     size: "medium",
   },
+  {
+    src: "/gallery/setup_aligned.png",
+    alt: "Elegant Table Setup",
+    title: "Elegant Table Setup",
+    description: "Perfectly aligned presentation for your celebration",
+    category: ["all", "setups"],
+    size: "medium",
+  },
+  {
+    src: "/gallery/setup_home.png",
+    alt: "Home Party Setup",
+    title: "Home Party Setup",
+    description: "Bringing the celebration to your home",
+    category: ["all", "setups"],
+    size: "medium",
+  },
 ];
 
 const categories = [
@@ -308,7 +324,7 @@ export default function GalleryPage() {
               })}
             </div>
             <a href="/contact" className="gallery-book-now-btn">
-              Book Now
+              Inquire Now
             </a>
             <button
               className="gallery-burger-menu"
@@ -408,7 +424,7 @@ export default function GalleryPage() {
               );
             })}
             <a href="/contact" className="gallery-mobile-book-now-btn" onClick={closeMenu}>
-              Book Now
+              Inquire Now
             </a>
           </div>
         </div>
@@ -459,13 +475,6 @@ export default function GalleryPage() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="gallery-item-image"
                   />
-                  <div className="gallery-item-overlay">
-                    <div className="gallery-item-content">
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                      <span className="gallery-arrow">→</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             ))}

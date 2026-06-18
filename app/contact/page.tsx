@@ -176,9 +176,6 @@ export default function ContactPage() {
               );
             })}
           </div>
-          <a href="/contact" className="contact-book-now-btn">
-            Book Now
-          </a>
           <button
             className="contact-burger-menu"
             onClick={toggleMenu}
@@ -277,7 +274,7 @@ export default function ContactPage() {
             );
           })}
           <a href="/contact" className="contact-mobile-book-now-btn" onClick={closeMenu}>
-            Book Now
+            Inquire Now
           </a>
         </div>
       </div>
@@ -312,16 +309,16 @@ export default function ContactPage() {
       <section className="contact-info-section">
         <div className="container">
           <div className="contact-info-grid">
-            <div className="contact-info-card">
+            <a href="tel:929-238-5263" className="contact-info-card">
               <div className="info-icon">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 10.5c0 4.42-5.2 10.88-7.3 13.2-.4.45-1 .45-1.4 0C9.2 21.38 4 14.92 4 10.5 4 5.81 7.58 2 12 2s8 3.81 8 8.5zm-8 1.5c1.38 0 2.5-1.12 2.5-2.5S13.38 7 12 7s-2.5 1.12-2.5 2.5S10.62 12 12 12z"/>
+                  <path d="M20 15.5c-1.2 0-2.4-.2-3.5-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/>
                 </svg>
               </div>
               <h3>CALL US</h3>
               <p>929-238-5263</p>
-            </div>
-            <div className="contact-info-card">
+            </a>
+            <a href="mailto:thenibblestory@gmail.com" className="contact-info-card">
               <div className="info-icon">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
@@ -329,7 +326,7 @@ export default function ContactPage() {
               </div>
               <h3>EMAIL US</h3>
               <p>thenibblestory@gmail.com</p>
-            </div>
+            </a>
             <div className="contact-info-card">
               <div className="info-icon">
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -424,7 +421,7 @@ export default function ContactPage() {
                     <option value="birthday">Birthday</option>
                     <option value="corporate">Corporate Event</option>
                     <option value="festival">Festival</option>
-                    <option value="wedding">Wedding</option>
+                    <option value="graduation">Graduation</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
@@ -563,7 +560,7 @@ export default function ContactPage() {
         <div className="container">
           <h2>Follow Our Journey</h2>
           <div className="instagram-divider" />
-          <p className="instagram-handle">@thenibblestory</p>
+          <a href="https://instagram.com/thenibblestory" target="_blank" rel="noopener noreferrer" className="instagram-handle">@thenibblestory</a>
           <p className="instagram-description">
             Stay inspired with our latest spreads, events, and behind-the-scenes moments.
           </p>
@@ -636,8 +633,8 @@ export default function ContactPage() {
           </div>
           <div>
             <h2>Let&apos;s Connect</h2>
-            <p>929-238-5263</p>
-            <p>thenibblestory@gmail.com</p>
+            <p><a href="tel:929-238-5263">929-238-5263</a></p>
+            <p><a href="mailto:thenibblestory@gmail.com">thenibblestory@gmail.com</a></p>
           </div>
         </div>
         <div className="footer-bottom">

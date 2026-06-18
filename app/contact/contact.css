@@ -657,12 +657,19 @@
 }
 
 .instagram-handle {
+  display: block;
   margin: 0 0 0.5rem;
   color: var(--sage-deep);
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
+  text-decoration: none;
+  transition: color 220ms ease;
+}
+
+.instagram-handle:hover {
+  color: var(--sage);
 }
 
 .instagram-description {

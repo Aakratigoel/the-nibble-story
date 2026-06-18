@@ -81,7 +81,8 @@ const menuData = {
     "Gajar Halwa Tarts",
     "Jalebi Rabdi Bowls",
     "Very Berry Trifle",
-    "Mango Rasmalai Tiramisu"
+    "Mango Rasmalai Tiramisu",
+    "Assorted Indian Fusion Tiramisu"
   ],
   drinks: [
     "Bubbly Peach",
@@ -197,7 +198,7 @@ export default function MenusPage() {
               })}
             </div>
             <a href="/contact" className="menus-book-now-btn">
-              Book Now
+              Inquire Now
             </a>
             <button
               className="menus-burger-menu"
@@ -297,7 +298,7 @@ export default function MenusPage() {
               );
             })}
             <a href="/contact" className="menus-mobile-book-now-btn" onClick={closeMenu}>
-              Book Now
+              Inquire Now
             </a>
           </div>
         </div>
