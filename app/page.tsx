@@ -644,7 +644,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="site-footer" id="contact">
+      <footer className="site-footer">
         <div className="container footer-grid">
           <div className="footer-brand">
             <BrandMark />
@@ -672,7 +672,7 @@ export default function Home() {
             <Link href="/menus">Menus</Link>
             <Link href="/gallery">Gallery</Link>
             <Link href="/about">About Us</Link>
-            <a href="#contact">Contact</a>
+            <Link href="/contact">Contact</Link>
           </div>
           <div>
             <h2>Serving</h2>

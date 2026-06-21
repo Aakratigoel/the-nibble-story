@@ -99,9 +99,14 @@ export default function MenusPage() {
   const scrollToCategory = (category: MenuCategory) => {
     setActiveCategory(category);
     const element = document.getElementById(category);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (!element) return;
+
+    const categoryNav = document.querySelector(".menu-categories");
+    const offset =
+      categoryNav instanceof HTMLElement ? categoryNav.offsetHeight + 24 : 100;
+    const top = element.getBoundingClientRect().top + window.scrollY - offset;
+
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   };
 
   const toggleMenu = () => {

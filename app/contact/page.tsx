@@ -447,7 +447,7 @@ export default function ContactPage() {
                 <h3 className="form-section-title">CATERING STYLE</h3>
                 <p className="form-section-subtitle">Select all that apply</p>
                 <div className="checkbox-grid">
-                  {["Grazing Table", "Small Bites", "Full Catering", "Live Station", "Desserts", "Drinks", "Not Sure Yet"].map((style) => (
+                  {["Grazing Table", "Small Bites", "Full Catering", "Desserts Table", "Drinks Station", "Not Sure Yet"].map((style) => (
                     <label key={style} className="checkbox-label">
                       <input
                         type="checkbox"
