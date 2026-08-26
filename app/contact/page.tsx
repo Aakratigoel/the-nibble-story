@@ -334,7 +334,7 @@ export default function ContactPage() {
                 </svg>
               </div>
               <h3>SERVING</h3>
-              <p>New Jersey &amp; New York</p>
+              <p>North New Jersey</p>
             </div>
             <div className="contact-info-card">
               <div className="info-icon">
@@ -437,7 +437,6 @@ export default function ContactPage() {
                     <option value="10-25">10-25 guests</option>
                     <option value="25-50">25-50 guests</option>
                     <option value="50-100">50-100 guests</option>
-                    <option value="100+">100+ guests</option>
                   </select>
                 </div>
               </div>
@@ -463,13 +462,14 @@ export default function ContactPage() {
 
             {/* Event Location */}
             <div className="form-group">
-              <h3 className="form-section-title">EVENT LOCATION</h3>
+              <h3 className="form-section-title">EVENT LOCATION *</h3>
               <input
                 type="text"
                 id="eventLocation"
                 placeholder="City / Venue Name"
                 value={formData.eventLocation}
                 onChange={(e) => setFormData({ ...formData, eventLocation: e.target.value })}
+                required
               />
             </div>
 
