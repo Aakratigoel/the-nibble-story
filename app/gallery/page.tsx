@@ -244,9 +244,10 @@ export default function GalleryPage() {
   useEffect(() => {
     async function fetchGalleryData() {
       try {
-        const response = await fetch('/api/admin/gallery', {
-          next: { revalidate: 300 } // Revalidate every 5 minutes
-        });
+        const response = await fetch('/api/gallery');
+        if (!response.ok) {
+          throw new Error(`Gallery fetch failed: ${response.status}`);
+        }
         const sanityImages: SanityGalleryImage[] = await response.json();
 
         // If Sanity has images, use them; otherwise use fallback

@@ -56,9 +56,10 @@ export default function MenusPage() {
   useEffect(() => {
     async function fetchMenuData() {
       try {
-        const response = await fetch('/api/admin/menu', {
-          next: { revalidate: 300 } // Revalidate every 5 minutes
-        });
+        const response = await fetch('/api/menu');
+        if (!response.ok) {
+          throw new Error(`Menu fetch failed: ${response.status}`);
+        }
         const items: MenuItem[] = await response.json();
 
         // Group items by category
