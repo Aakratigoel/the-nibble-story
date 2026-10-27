@@ -4,7 +4,7 @@ import { sanityClient } from '@/lib/sanity/client'
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth()
   if (!session) {
@@ -12,10 +12,11 @@ export async function PUT(
   }
 
   try {
+    const { id } = await params
     const body = await request.json()
 
     const updated = await sanityClient
-      .patch(params.id)
+      .patch(id)
       .set(body)
       .commit()
 
@@ -28,7 +29,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth()
   if (!session) {
@@ -36,11 +37,13 @@ export async function DELETE(
   }
 
   try {
+    const { id } = await params
+
     // Get the image document to find the asset reference
-    const image = await sanityClient.getDocument(params.id)
+    const image = await sanityClient.getDocument(id)
 
     // Delete the document
-    await sanityClient.delete(params.id)
+    await sanityClient.delete(id)
 
     // Optionally delete the asset (image file) from Sanity
     if (image && (image as any).image?.asset?._ref) {

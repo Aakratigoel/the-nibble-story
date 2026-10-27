@@ -4,7 +4,7 @@ import { sanityClient } from '@/lib/sanity/client'
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth()
   if (!session) {
@@ -12,10 +12,11 @@ export async function PUT(
   }
 
   try {
+    const { id } = await params
     const body = await request.json()
 
     const updated = await sanityClient
-      .patch(params.id)
+      .patch(id)
       .set(body)
       .commit()
 
@@ -28,7 +29,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth()
   if (!session) {
@@ -36,7 +37,8 @@ export async function DELETE(
   }
 
   try {
-    await sanityClient.delete(params.id)
+    const { id } = await params
+    await sanityClient.delete(id)
     return new NextResponse(null, { status: 204 })
   } catch (error) {
     console.error('Error deleting menu item:', error)
