@@ -21,80 +21,77 @@ function BrandMark() {
 
 type MenuCategory = "small-bites" | "large-bites" | "meals" | "curries-sides" | "desserts" | "drinks";
 
-const menuData = {
-  smallBites: [
-    "Avocado Chana Chaat",
-    "Palak Paneer Swirls",
-    "Bhatti Paneer Kulcha Bites",
-    "Mexican Chaat Cups",
-    "Assorted Crostinis",
-    "Crudité Hummus Cups",
-    "Thai Crunch Salad Cups",
-    "Avocado Mango Bhel Cups",
-    "Dahi Bhalla Bombs",
-    "Chaat Papdi Board",
-    "Achaari Aloo Puff Pockets",
-    "Szechuan Paneer Sliders",
-    "Deconstructed Samosa Cups",
-    "Golgappa Station"
-  ],
-  largeBites: [
-    "Alfredo Paneer Kathi Rolls",
-    "Paneer Tikka Croissant",
-    "Street Style Bun Chola",
-    "The OG Vada Pav",
-    "Crunchy Tikki Burger",
-    "Thecha Aloo Wrap",
-    "Classic Style Dabeli"
-  ],
-  meals: [
-    "Pineapple Szechuan Fried Rice",
-    "Makhni Penne Pasta",
-    "Vegetable Lasagna",
-    "Au Gratin with Garlic Bread",
-    "Pav Bhaji",
-    "Paneer Makhni Biryani",
-    "Thai Red Curry"
-  ],
-  curries: [
-    "Makhni Magic Daal",
-    "Koyla Daal Dhaba",
-    "Chole Gali Style",
-    "Pind Di Kadhi",
-    "Paneer Butter Bliss",
-    "Kadahi Style Paneer",
-    "Korma Royale",
-    "Aachar - E - Aloo",
-    "Methi Matar Malai"
-  ],
-  sides: [
-    "Naan Kulcha Collective",
-    "Ghar Ka Paratha",
-    "Jeera Kissed Rice",
-    "Shahi Kesar Pulav",
-    "Minty Desi Raita"
-  ],
-  desserts: [
-    "Berry Blossom Kheer",
-    "Motichoor Rabdi Parfait",
-    "Gulab Jamun Pudding",
-    "Gajar Halwa Tarts",
-    "Jalebi Rabdi Bowls",
-    "Very Berry Trifle",
-    "Mango Rasmalai Tiramisu",
-    "Assorted Indian Fusion Tiramisu"
-  ],
-  drinks: [
-    "Bubbly Peach",
-    "Blackberry Kala Khatta",
-    "Sweet & Sour Mango",
-    "Black Grape Shikanj"
-  ]
-};
+interface MenuItem {
+  _id: string;
+  name: string;
+  category: string;
+  order: number;
+}
+
+interface MenuData {
+  smallBites: string[];
+  largeBites: string[];
+  meals: string[];
+  curries: string[];
+  sides: string[];
+  desserts: string[];
+  drinks: string[];
+}
 
 export default function MenusPage() {
   const [activeCategory, setActiveCategory] = useState<MenuCategory | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuData, setMenuData] = useState<MenuData>({
+    smallBites: [],
+    largeBites: [],
+    meals: [],
+    curries: [],
+    sides: [],
+    desserts: [],
+    drinks: [],
+  });
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch menu data from Sanity on mount
+  useEffect(() => {
+    async function fetchMenuData() {
+      try {
+        const response = await fetch('/api/admin/menu', {
+          next: { revalidate: 300 } // Revalidate every 5 minutes
+        });
+        const items: MenuItem[] = await response.json();
+
+        // Group items by category
+        const grouped: MenuData = {
+          smallBites: [],
+          largeBites: [],
+          meals: [],
+          curries: [],
+          sides: [],
+          desserts: [],
+          drinks: [],
+        };
+
+        items.forEach((item) => {
+          if (item.category === 'smallBites') grouped.smallBites.push(item.name);
+          else if (item.category === 'largeBites') grouped.largeBites.push(item.name);
+          else if (item.category === 'meals') grouped.meals.push(item.name);
+          else if (item.category === 'curries') grouped.curries.push(item.name);
+          else if (item.category === 'sides') grouped.sides.push(item.name);
+          else if (item.category === 'desserts') grouped.desserts.push(item.name);
+          else if (item.category === 'drinks') grouped.drinks.push(item.name);
+        });
+
+        setMenuData(grouped);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch menu data:', error);
+        setIsLoading(false);
+      }
+    }
+
+    fetchMenuData();
+  }, []);
 
   const scrollToCategory = (category: MenuCategory) => {
     setActiveCategory(category);
@@ -363,6 +360,13 @@ export default function MenusPage() {
 
       {/* Menu Sections */}
       <div className="menu-content">
+        {isLoading && (
+          <div style={{ textAlign: 'center', padding: '4rem 0', fontSize: '1.2rem', color: '#cca55b' }}>
+            Loading menu...
+          </div>
+        )}
+        {!isLoading && (
+          <>
         {/* Small Bites */}
         <section id="small-bites" className="menu-section">
           <div className="container">
@@ -547,6 +551,8 @@ export default function MenusPage() {
             </div>
           </div>
         </section>
+        </>
+        )}
       </div>
 
       <footer className="site-footer" id="contact">

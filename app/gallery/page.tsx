@@ -19,6 +19,17 @@ function BrandMark() {
   );
 }
 
+interface SanityGalleryImage {
+  _id: string;
+  title: string;
+  description?: string;
+  imageUrl: string;
+  alt: string;
+  categories: string[];
+  size: string;
+  order: number;
+}
+
 type GalleryItem = {
   src: string;
   alt: string;
@@ -28,7 +39,8 @@ type GalleryItem = {
   size: "large" | "medium" | "small";
 };
 
-const galleryItems: GalleryItem[] = [
+// Fallback images - shown only if Sanity gallery is empty
+const fallbackGalleryItems: GalleryItem[] = [
   {
     src: "/gallery/setup_2.png",
     alt: "Elegant Setup",
@@ -225,6 +237,44 @@ const categories = [
 export default function GalleryPage() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch gallery data from Sanity on mount
+  useEffect(() => {
+    async function fetchGalleryData() {
+      try {
+        const response = await fetch('/api/admin/gallery', {
+          next: { revalidate: 300 } // Revalidate every 5 minutes
+        });
+        const sanityImages: SanityGalleryImage[] = await response.json();
+
+        // If Sanity has images, use them; otherwise use fallback
+        if (sanityImages.length > 0) {
+          const converted: GalleryItem[] = sanityImages.map((img) => ({
+            src: img.imageUrl,
+            alt: img.alt,
+            title: img.title,
+            description: img.description || '',
+            category: img.categories,
+            size: (img.size || 'medium') as 'large' | 'medium' | 'small',
+          }));
+          setGalleryItems(converted);
+        } else {
+          // Use fallback images when Sanity is empty
+          setGalleryItems(fallbackGalleryItems);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch gallery data:', error);
+        // On error, use fallback images
+        setGalleryItems(fallbackGalleryItems);
+        setIsLoading(false);
+      }
+    }
+
+    fetchGalleryData();
+  }, []);
 
   const filteredItems = galleryItems.filter((item) =>
     item.category.includes(activeFilter)
@@ -461,6 +511,12 @@ export default function GalleryPage() {
       {/* Gallery Grid */}
       <section className="gallery-grid-section">
         <div className="container">
+          {isLoading && (
+            <div style={{ textAlign: 'center', padding: '4rem 0', fontSize: '1.2rem', color: '#cca55b' }}>
+              Loading gallery...
+            </div>
+          )}
+          {!isLoading && (
           <div className="gallery-masonry">
             {filteredItems.map((item, index) => (
               <div
@@ -479,6 +535,7 @@ export default function GalleryPage() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
